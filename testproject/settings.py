@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'myapp/media')
 NER_ROOT = os.path.join(BASE_DIR, 'myapp/pythainlp')
+OCR_ROOT = os.path.join(BASE_DIR, 'myapp/ocrdata')
 
 
 

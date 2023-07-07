@@ -185,8 +185,9 @@ def livefe(request):
 
 def ocr(request):
     media_path = os.path.join(settings.MEDIA_ROOT, 'capture.jpg')
+    ocr_path = os.path.join(settings.OCR_ROOT, 'tessdata_best-main')
     if os.path.exists(media_path):
-        with PyTessBaseAPI(path='C:/Users/User/anaconda3/share/tessdata_best-main',lang='tha+eng') as api:
+        with PyTessBaseAPI(path=ocr_path,lang='tha+eng') as api:
             api.SetImageFile(media_path)
             text = api.GetUTF8Text()
             conf = api.AllWordConfidences()
@@ -262,7 +263,7 @@ def ocr(request):
 
             if len(person) == 2:
                 print('ผู้ส่ง :',person[0]),print('ผู้รับ :',person[1])
-                return JsonResponse({'tag': person[0], 'ผู้รับ': person[1], 'text': text}, status=200)
+                return JsonResponse({'ผู้ส่ง': person[0], 'tag': person[1], 'text': text}, status=200)
 
             elif len(person) > 2:
                 # print('ผู้ส่ง :',person[0]),print('ผู้รับ :',person[1]+person[2])
@@ -271,7 +272,7 @@ def ocr(request):
                 print('ผู้ส่ง :',person[0]),print('ผู้รับ :',person[1])
                 return person[0],person[1]
             else :
-                return JsonResponse({'tag': 'ไม่พบข้อมูล', 'ผู้รับ': 'ไม่พบข้อมูล'}, status=200)
+                return JsonResponse({'ผู้ส่ง': 'ไม่พบข้อมูล', 'tag': 'ไม่พบข้อมูล'}, status=200)
             
             
     return HttpResponse(status=200)
